@@ -73,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
                 break;
 
             case PropellantTypes.Jetpack:
-                thrust = 0.5f;
+                thrust = 0.8f;
                 rotationRate = 5f;
                 fuelConsumptionRate = 6f;
                 break;

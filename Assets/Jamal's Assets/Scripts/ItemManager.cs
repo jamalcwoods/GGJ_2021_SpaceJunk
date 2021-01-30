@@ -22,6 +22,12 @@ public class ItemManager : MonoBehaviour
         set { pType = value; }
     }
 
+    public CollectableTypes CType
+    {
+        get { return cType; }
+        set { cType = value; }
+    }
+
     public float OxygenReplinishAmount
     {
         get { return oxygenReplinishAmount; }
@@ -72,11 +78,15 @@ public class ItemManager : MonoBehaviour
                             break;
 
                         case CollectableTypes.Rebreather:
-                            p.oxygenTickRate *= 0.75f;
+                            p.oxygenTickRate *= 0.25f;
+                            if(p.oxygenTickRate < 0.2)
+                            {
+                                p.oxygenTickRate = 0.2f;
+                            }
                             break;
 
                         case CollectableTypes.PropulsionComputer:
-                            collision.gameObject.GetComponent<Rigidbody2D>().angularDrag *= 0.75f;
+                            collision.gameObject.GetComponent<Rigidbody2D>().drag += 0.5f;
                             break;
                     }
                     break;

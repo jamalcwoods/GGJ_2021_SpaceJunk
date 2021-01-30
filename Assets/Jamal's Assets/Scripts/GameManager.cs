@@ -10,17 +10,21 @@ public class GameManager : MonoBehaviour
     private GameObject ItemPreab, playerPrefab, debriPrefab;
 
     [SerializeField]
-    private GameObject oxygenBar; 
+    private GameObject oxygenBar;
+
+    [SerializeField]
+    private GameObject stats;
 
     private int spawnRange = 50;
-    private int oxygenSpawnAmount = 90;
-    private int propellantSpawnAmount = 60;
-    private int debriSpawnAmount = 400;
+    private int oxygenSpawnAmount = 120;
+    private int propellantSpawnAmount = 120;
+    private int collectableSpawnAmount = 80;
+    private int debriSpawnAmount = 450;
 
     private int minDebriSize = 1;
     private int maxDebriSize = 4;
 
-    private GameObject playerInstance;
+    private GameObject playerInstance, keyInstance;
 
     private List<GameObject> itemInstances = new List<GameObject>(), debriInstances = new List<GameObject>(),entityInstances = new List<GameObject>();
     // Start is called before the first frame update
@@ -59,6 +63,24 @@ public class GameManager : MonoBehaviour
             entityInstances.Add(g);
         }
 
+        for (int i = 0; i < collectableSpawnAmount; i++)
+        {
+            Vector3 v = new Vector3(Random.Range(-spawnRange, spawnRange), Random.Range(-spawnRange, spawnRange), 0);
+            while (!checkForOpenSpawn(v))
+            {
+                v = new Vector3(Random.Range(-spawnRange, spawnRange), Random.Range(-spawnRange, spawnRange), 0);
+            }
+            GameObject g = Instantiate(ItemPreab, v, Quaternion.identity);
+            g.transform.parent = transform;
+            ItemManager item = g.GetComponent<ItemManager>();
+            item.Type = ItemTypes.Collectable;
+            int cIndex = Random.Range(0, 3);
+            item.CType = (CollectableTypes)cIndex;
+            item.GetComponent<SpriteRenderer>().color = new Color[] { Color.magenta, Color.white, Color.gray}[cIndex];
+            itemInstances.Add(g);
+            entityInstances.Add(g);
+        }
+
         for (int i = 0; i < debriSpawnAmount; i++)
         {
             Vector3 v = new Vector3(Random.Range(-spawnRange, spawnRange), Random.Range(-spawnRange, spawnRange), 0);
@@ -74,7 +96,18 @@ public class GameManager : MonoBehaviour
             debriInstances.Add(g);
             entityInstances.Add(g);
         }
+
         playerInstance = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+        Vector3 V = new Vector3(Random.Range(-spawnRange, spawnRange), Random.Range(-spawnRange, spawnRange), 0);
+        while (!checkForOpenSpawn(V))
+        {
+            V = new Vector3(Random.Range(-spawnRange, spawnRange), Random.Range(-spawnRange, spawnRange), 0);
+        }
+        keyInstance= Instantiate(ItemPreab, V, Quaternion.identity);
+        keyInstance.transform.parent = transform;
+        ItemManager keys = keyInstance.GetComponent<ItemManager>();
+        keys.Type = ItemTypes.Collectable;
+        keys.CType = CollectableTypes.Keys;
     }
 
     bool checkForOpenSpawn(Vector3 v)
@@ -96,5 +129,10 @@ public class GameManager : MonoBehaviour
     {
         RectTransform r = oxygenBar.GetComponent<RectTransform>();
         r.sizeDelta = new Vector2(600f * (playerInstance.GetComponent<PlayerManager>().oxygenAmount / 100), r.sizeDelta.y);
+
+        stats.GetComponent<Text>().text = "" +
+        "Oxygen Efficiency: " + (2 - playerInstance.GetComponent<PlayerManager>().oxygenTickRate) * 100 + "%\n" +
+        "Armor : " + playerInstance.GetComponent<PlayerMovement>().colResistance + "\n" +
+        "Propulsion Calibration: " + playerInstance.GetComponent<Rigidbody2D>().drag;
     }
 }
