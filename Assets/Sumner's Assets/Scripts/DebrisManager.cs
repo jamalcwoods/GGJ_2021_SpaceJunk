@@ -10,6 +10,7 @@ public class DebrisManager : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();      
         rb.AddTorque(Random.Range(-1, 1));
+        rb.AddForce(new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f)), ForceMode2D.Impulse);
     }
 
     void Update()
