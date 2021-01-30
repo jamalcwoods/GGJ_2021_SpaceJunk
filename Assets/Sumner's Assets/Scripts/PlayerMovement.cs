@@ -21,6 +21,9 @@ public class PlayerMovement : MonoBehaviour
     // the threshold where the player loses oxygen from collisions
     public float colResistance = 1;
 
+    // how fast oxygen gets used up when using suit as propullsion
+    public float oxygenConsumptionRate = 1;
+
     private float popperCooldown = 1f;
     private float curCooldown = 0f;
 
@@ -48,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
         // adds current horizontal input axis value to z axis rotation
         gameObject.transform.rotation = Quaternion.Euler(0, 0, gameObject.transform.rotation.eulerAngles.z - (Input.GetAxis("Horizontal") * rotationRate));
 
-        if((manager.currentPropellant == PropellantTypes.FireExt || manager.currentPropellant == PropellantTypes.Jetpack) && manager.propellantFuel > 0)
+        if((manager.currentPropellant == PropellantTypes.FireExt || manager.currentPropellant == PropellantTypes.Jetpack || manager.currentPropellant == PropellantTypes.Suit) && manager.propellantFuel > 0)
         {
             ThrustContinuous();
         }
@@ -86,6 +89,12 @@ public class PlayerMovement : MonoBehaviour
                 rotationRate = 3f;
                 fuelConsumptionRate = 0f;
                 break;
+
+            case PropellantTypes.Suit:
+                thrust = 0.1f;
+                rotationRate = 3f;
+                fuelConsumptionRate = 0f;
+                break;
         }
     }
 
@@ -94,6 +103,10 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             manager.propellantFuel -= Time.deltaTime * fuelConsumptionRate;
+            if(manager.currentPropellant == PropellantTypes.Suit)
+            {
+                manager.oxygenAmount -= Time.deltaTime * oxygenConsumptionRate;
+            }
             particles.Emit(5);
             rb.AddForce(gameObject.transform.up * thrust);
         }

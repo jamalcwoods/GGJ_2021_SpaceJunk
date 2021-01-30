@@ -66,10 +66,11 @@ public class GameManager : MonoBehaviour
             g.transform.parent = transform;
             int size = Random.Range(minDebriSize, maxDebriSize);
             g.transform.localScale = new Vector3(size,size,1);
+            g.GetComponent<Rigidbody2D>().mass *= size;
             debriInstances.Add(g);
             entityInstances.Add(g);
         }
-            playerInstance = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+        playerInstance = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
     }
 
     bool checkForOpenSpawn(Vector3 v)

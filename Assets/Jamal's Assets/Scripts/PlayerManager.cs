@@ -9,7 +9,6 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField]
     private float oxygenTickRate;
-    private float fuelAmount;
     public float propellantFuel;
     [SerializeField]
     public PropellantTypes currentPropellant;
@@ -25,6 +24,11 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         oxygenAmount -= Time.deltaTime * oxygenTickRate;
+        if(propellantFuel < 0)
+        {
+            propellantFuel = 1;
+            currentPropellant = PropellantTypes.Suit;
+        }
     }
 
     public void SetPropellant(PropellantTypes p)
