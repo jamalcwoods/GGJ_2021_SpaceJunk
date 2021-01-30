@@ -105,7 +105,6 @@ public class GameManager : MonoBehaviour
             V = new Vector3(Random.Range(-spawnRange, spawnRange), Random.Range(-spawnRange, spawnRange), 0);
         }
         keyInstance = Instantiate(ItemPreab, V, Quaternion.identity);
-        keyInstance.transform.parent = transform;
         ItemManager Item = keyInstance.GetComponent<ItemManager>();
         Item.Type = ItemTypes.Collectable;
         Item.CType = CollectableTypes.Keys;
