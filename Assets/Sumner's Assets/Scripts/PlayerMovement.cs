@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
 
     private ParticleSystem particles;
+    private PlayerManager manager;
 
     // how fast can the player spin
     public float rotationRate = 1f;
@@ -18,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         particles = gameObject.GetComponent<ParticleSystem>();
+        manager = gameObject.GetComponent<PlayerManager>();
     }
 
     void FixedUpdate()
@@ -25,8 +27,10 @@ public class PlayerMovement : MonoBehaviour
         // adds current horizontal input axis value to z axis rotation
         gameObject.transform.rotation = Quaternion.Euler(0, 0, gameObject.transform.rotation.eulerAngles.z - (Input.GetAxis("Horizontal") * rotationRate));
 
+        // when space is down, add force in local "up" direction and emit particles
         if (Input.GetKey(KeyCode.Space))
         {
+            manager.propellantFuel -= Time.deltaTime;
             particles.Emit(5);
             rb.AddForce(gameObject.transform.up * thrust);
         }
