@@ -4,18 +4,12 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    private float oxygenAmount;
+    public float oxygenAmount;
+    private float oxygenTickRate;
     private float fuelAmount;
     public float propellantFuel;
+    [SerializeField]
     public PropellantTypes currentPropellant;
-    private CollectableTypes currentCollectable;
-
-
-    public float OxygenAmount
-    {
-        get { return oxygenAmount; }
-        set { oxygenAmount = value; }
-    }
 
     // Start is called before the first frame update
     void Start()
