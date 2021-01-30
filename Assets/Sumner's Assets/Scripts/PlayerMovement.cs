@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
 
-    private ParticleSystem particles;
+    private GameObject fireExPart, suitPart, jetpackPart, popperPart;
     private PlayerManager manager;
 
     // how fast can the player spin
@@ -30,8 +30,12 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
-        particles = gameObject.GetComponent<ParticleSystem>();
         manager = gameObject.GetComponent<PlayerManager>();
+
+        fireExPart = gameObject.transform.Find("FireExtinguisherParticles").gameObject;
+        suitPart = gameObject.transform.Find("SuitParticles").gameObject;
+        jetpackPart = gameObject.transform.Find("JetPackParticles").gameObject;
+        popperPart = gameObject.transform.Find("PopperParticles").gameObject;
     }
 
     private void Update()
@@ -107,7 +111,22 @@ public class PlayerMovement : MonoBehaviour
             {
                 manager.oxygenAmount -= Time.deltaTime * oxygenConsumptionRate;
             }
-            particles.Emit(5);
+
+            switch (manager.currentPropellant)
+            {
+                case PropellantTypes.FireExt:
+                    fireExPart.GetComponent<ParticleSystem>().Emit(15);
+                    break;
+
+                case PropellantTypes.Suit:
+                    suitPart.GetComponent<ParticleSystem>().Emit(15);
+                    break;
+
+                case PropellantTypes.Jetpack:
+                    jetpackPart.GetComponent<ParticleSystem>().Emit(15);
+                    break;
+            }
+
             rb.AddForce(gameObject.transform.up * thrust);
         }
     }
@@ -122,7 +141,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && curCooldown <= 0)
         {
             manager.propellantFuel -= fuelConsumptionRate;
-            particles.Emit(50);
+            popperPart.GetComponent<ParticleSystem>().Emit(50);
             rb.AddForce(gameObject.transform.up * thrust, ForceMode2D.Impulse);
 
             curCooldown = popperCooldown;
