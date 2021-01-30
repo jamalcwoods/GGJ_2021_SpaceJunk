@@ -30,12 +30,39 @@ public class PlayerMovement : MonoBehaviour
         // adds current horizontal input axis value to z axis rotation
         gameObject.transform.rotation = Quaternion.Euler(0, 0, gameObject.transform.rotation.eulerAngles.z - (Input.GetAxis("Horizontal") * rotationRate));
 
-        // when space is down, add force in local "up" direction and emit particles
+        if((manager.currentPropellant == PropellantTypes.FireExt || manager.currentPropellant == PropellantTypes.Jetpack) && manager.propellantFuel > 0)
+        {
+            ThrustContinuous();
+        }
+
+        if (manager.currentPropellant == PropellantTypes.SolarSail)
+        {
+            ThrustConstant();
+        }
+    }
+
+    private void ThrustContinuous()
+    {
         if (Input.GetKey(KeyCode.Space))
         {
             manager.propellantFuel -= Time.deltaTime * fuelConsumptionRate;
             particles.Emit(5);
             rb.AddForce(gameObject.transform.up * thrust);
         }
+    }
+
+    private void ThrustImpulse()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            manager.propellantFuel -= fuelConsumptionRate;
+            particles.Emit(50);
+            rb.AddForce(gameObject.transform.up * thrust, ForceMode2D.Impulse);
+        }
+    }
+
+    private void ThrustConstant()
+    {
+        rb.AddForce(gameObject.transform.up * thrust);
     }
 }
