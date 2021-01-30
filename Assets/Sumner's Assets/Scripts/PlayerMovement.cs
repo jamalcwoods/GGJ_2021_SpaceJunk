@@ -13,10 +13,9 @@ public class PlayerMovement : MonoBehaviour
     public float rotationRate = 4f;
 
     // how fast does the player get accelerated
-
     public float thrust = 1f;
-    // how fast fuel gets used up
 
+    // how fast fuel gets used up
     public float fuelConsumptionRate = 1f;
 
     // the threshold where the player loses oxygen from collisions
@@ -39,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
             ThrustImpulse();
         }
 
+        SetThrustVariables();
+
         rb.angularVelocity = 0;
     }
 
@@ -52,9 +53,39 @@ public class PlayerMovement : MonoBehaviour
             ThrustContinuous();
         }
 
-        if (manager.currentPropellant == PropellantTypes.SolarSail)
+        if (manager.currentPropellant == PropellantTypes.SolarSail && manager.propellantFuel > 0)
         {
             ThrustConstant();
+        }
+    }
+
+    private void SetThrustVariables()
+    {
+        switch (manager.currentPropellant)
+        {
+            case PropellantTypes.FireExt:
+                thrust = 2f;
+                rotationRate = 2f;
+                fuelConsumptionRate = 3f;
+                break;
+
+            case PropellantTypes.Jetpack:
+                thrust = 0.5f;
+                rotationRate = 5f;
+                fuelConsumptionRate = 1.5f;
+                break;
+
+            case PropellantTypes.Popper:
+                thrust = 3f;
+                rotationRate = 4f;
+                fuelConsumptionRate = 10f;
+                break;
+
+            case PropellantTypes.SolarSail:
+                thrust = 0.1f;
+                rotationRate = 3f;
+                fuelConsumptionRate = 0f;
+                break;
         }
     }
 
