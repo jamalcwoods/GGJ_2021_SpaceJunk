@@ -65,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
         {
             case PropellantTypes.FireExt:
                 thrust = 2f;
-                rotationRate = 2f;
+                rotationRate = 10f;
                 fuelConsumptionRate = 12f;
                 break;
 
@@ -78,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
             case PropellantTypes.Popper:
                 thrust = 3f;
                 rotationRate = 4f;
-                fuelConsumptionRate = 10f;
+                fuelConsumptionRate = 15f;
                 break;
 
             case PropellantTypes.SolarSail:
