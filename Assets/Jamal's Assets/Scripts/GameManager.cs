@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
             item.Type = ItemTypes.Propellant;
             int pIndex = Random.Range(0, 4);
             item.PType = (PropellantTypes)pIndex;
+            //red - fireExt, green - jetpack, yellow - solarsail, cyan - popper
             item.GetComponent<SpriteRenderer>().color = new Color[] { Color.red, Color.green, Color.yellow, Color.cyan }[pIndex];
             itemInstances.Add(g);
             entityInstances.Add(g);
@@ -76,6 +77,7 @@ public class GameManager : MonoBehaviour
             item.Type = ItemTypes.Collectable;
             int cIndex = Random.Range(0, 3);
             item.CType = (CollectableTypes)cIndex;
+            // magenta - rebreather, white - armor, gray - propulsion computer
             item.GetComponent<SpriteRenderer>().color = new Color[] { Color.magenta, Color.white, Color.gray}[cIndex];
             itemInstances.Add(g);
             entityInstances.Add(g);
