@@ -85,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
                 break;
 
             case PropellantTypes.SolarSail:
-                thrust = 0.75f;
+                thrust = 0.6f;
                 rotationRate = 3f;
                 fuelConsumptionRate = 0f;
                 break;

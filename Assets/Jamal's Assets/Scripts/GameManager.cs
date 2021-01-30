@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,10 +9,13 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject ItemPreab, playerPrefab, debriPrefab, shipPrefab;
 
+    [SerializeField]
+    private GameObject oxygenBar; 
+
     private int spawnRange = 50;
     private int oxygenSpawnAmount = 90;
     private int propellantSpawnAmount = 60;
-    private int debriSpawnAmount = 360;
+    private int debriSpawnAmount = 400;
 
     private int minDebriSize = 1;
     private int maxDebriSize = 4;
@@ -117,6 +121,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        RectTransform r = oxygenBar.GetComponent<RectTransform>();
+        r.sizeDelta = new Vector2(600f * (playerInstance.GetComponent<PlayerManager>().oxygenAmount / 100), r.sizeDelta.y);
     }
 }
