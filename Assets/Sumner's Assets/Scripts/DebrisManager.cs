@@ -23,7 +23,7 @@ public class DebrisManager : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerManager>())
         {
-            if(collision.relativeVelocity.magnitude >= 3)
+            if(collision.relativeVelocity.magnitude >= colResistance)
             {
                 collision.gameObject.GetComponent<PlayerManager>().OxygenAmount -= collision.relativeVelocity.magnitude;
             }
