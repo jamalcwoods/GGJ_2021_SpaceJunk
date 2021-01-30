@@ -32,10 +32,10 @@ public class PlayerMovement : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         manager = gameObject.GetComponent<PlayerManager>();
 
-        fireExPart = gameObject.transform.Find("FireExtinguisherParticles").gameObject;
-        suitPart = gameObject.transform.Find("SuitParticles").gameObject;
-        jetpackPart = gameObject.transform.Find("JetPackParticles").gameObject;
-        popperPart = gameObject.transform.Find("PopperParticles").gameObject;
+        fireExPart = gameObject.transform.Find("Propulsion").Find("FireExtinguisherParticles").gameObject;
+        suitPart = gameObject.transform.Find("Propulsion").Find("SuitParticles").gameObject;
+        jetpackPart = gameObject.transform.Find("Propulsion").Find("JetPackParticles").gameObject;
+        popperPart = gameObject.transform.Find("Propulsion").Find("PopperParticles").gameObject;
     }
 
     private void Update()
@@ -47,13 +47,13 @@ public class PlayerMovement : MonoBehaviour
 
         SetThrustVariables();
 
-        rb.angularVelocity = 0;
+       rb.angularVelocity = 0;
     }
 
     void FixedUpdate()
     {
         // adds current horizontal input axis value to z axis rotation
-        gameObject.transform.rotation = Quaternion.Euler(0, 0, gameObject.transform.rotation.eulerAngles.z - (Input.GetAxis("Horizontal") * rotationRate));
+        gameObject.transform.Find("Propulsion").rotation = Quaternion.Euler(0, 0, gameObject.transform.Find("Propulsion").rotation.eulerAngles.z - (Input.GetAxis("Horizontal") * rotationRate));
 
         if((manager.currentPropellant == PropellantTypes.FireExt || manager.currentPropellant == PropellantTypes.Jetpack || manager.currentPropellant == PropellantTypes.Suit) && manager.propellantFuel > 0)
         {
@@ -119,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
                     break;
 
                 case PropellantTypes.Suit:
-                    suitPart.GetComponent<ParticleSystem>().Emit(15);
+                    suitPart.GetComponent<ParticleSystem>().Emit(2);
                     break;
 
                 case PropellantTypes.Jetpack:
@@ -127,7 +127,7 @@ public class PlayerMovement : MonoBehaviour
                     break;
             }
 
-            rb.AddForce(gameObject.transform.up * thrust);
+            rb.AddForce(gameObject.transform.Find("Propulsion").up * thrust);
         }
     }
 
@@ -142,7 +142,7 @@ public class PlayerMovement : MonoBehaviour
         {
             manager.propellantFuel -= fuelConsumptionRate;
             popperPart.GetComponent<ParticleSystem>().Emit(50);
-            rb.AddForce(gameObject.transform.up * thrust, ForceMode2D.Impulse);
+            rb.AddForce(gameObject.transform.Find("Propulsion").up * thrust, ForceMode2D.Impulse);
 
             curCooldown = popperCooldown;
         }
@@ -150,6 +150,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void ThrustConstant()
     {
-        rb.AddForce(gameObject.transform.up * thrust);
+        rb.AddForce(gameObject.transform.Find("Propulsion").up * thrust);
     }
 }
