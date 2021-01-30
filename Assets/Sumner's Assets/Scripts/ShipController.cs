@@ -4,15 +4,28 @@ using UnityEngine;
 
 public class ShipController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private PlayerManager player;
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if(player == null)
+        {
+            player = GameObject.FindWithTag("Player").GetComponent<PlayerManager>();
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            if (player.hasKeys)
+            {
+                print("You Win!");
+            }
+            else
+            {
+                print("I need my keys!");
+            }
+        }
     }
 }
