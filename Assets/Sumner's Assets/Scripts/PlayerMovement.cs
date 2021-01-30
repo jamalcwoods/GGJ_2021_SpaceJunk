@@ -13,12 +13,17 @@ public class PlayerMovement : MonoBehaviour
     public float rotationRate = 4f;
 
     // how fast does the player get accelerated
-    public float thrust = 1f;
 
+    public float thrust = 1f;
     // how fast fuel gets used up
+
     public float fuelConsumptionRate = 1f;
 
+    // the threshold where the player loses oxygen from collisions
     public float colResistance = 3;
+
+    private float popperCooldown = 1f;
+    private float curCooldown = 0f;
 
     void Start()
     {
@@ -65,11 +70,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void ThrustImpulse()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if(curCooldown > 0)
+        {
+            curCooldown -= Time.deltaTime;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && curCooldown <= 0)
         {
             manager.propellantFuel -= fuelConsumptionRate;
             particles.Emit(50);
             rb.AddForce(gameObject.transform.up * thrust, ForceMode2D.Impulse);
+
+            curCooldown = popperCooldown;
         }
     }
 
