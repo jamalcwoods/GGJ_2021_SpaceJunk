@@ -3,5 +3,6 @@
     FireExt,
     Jetpack,
     SolarSail,
-    Popper
+    Popper,
+    Suit
 }
