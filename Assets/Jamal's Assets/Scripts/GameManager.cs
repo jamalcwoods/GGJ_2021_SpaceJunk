@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
 
     [SerializeField]
-    private GameObject ItemPreab, playerPrefab, debriPrefab;
+    private GameObject ItemPreab, playerPrefab, debriPrefab, shipPrefab;
 
     private int spawnRange = 50;
     private int oxygenSpawnAmount = 90;
@@ -71,6 +71,33 @@ public class GameManager : MonoBehaviour
             entityInstances.Add(g);
         }
         playerInstance = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+
+        SpawnShip();
+    }
+
+    private void SpawnShip()
+    {
+        int shipEdge = Mathf.RoundToInt(Random.Range(0, 4));
+
+        // 0:up, 1:right, 2:down, 3:left
+        switch (shipEdge)
+        {
+            case 0:
+                Instantiate(shipPrefab, new Vector2(Random.Range(-55, 55), 60), Quaternion.identity);
+                break;
+
+            case 1:
+                Instantiate(shipPrefab, new Vector2(60, Random.Range(-55, 55)), Quaternion.identity);
+                break;
+
+            case 2:
+                Instantiate(shipPrefab, new Vector2(Random.Range(-55, 55), -60), Quaternion.identity);
+                break;
+
+            case 3:
+                Instantiate(shipPrefab, new Vector2(-60, Random.Range(-55, 55)), Quaternion.identity);
+                break;
+        }
     }
 
     bool checkForOpenSpawn(Vector3 v)
