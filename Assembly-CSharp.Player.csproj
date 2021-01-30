@@ -58,6 +58,7 @@
     <Compile Include="Assets\Jamal&apos;s Assets\Scripts 1\PlayerManager.cs" />
     <Compile Include="Assets\Jamal&apos;s Assets\Scripts 1\GameManager.cs" />
     <Compile Include="Assets\ItemManager.cs" />
+    <Compile Include="Assets\Sumner&apos;s Assets\Scripts\PlayerMovement.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
