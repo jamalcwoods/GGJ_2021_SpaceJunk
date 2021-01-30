@@ -5,7 +5,6 @@ using UnityEngine;
 public class DebrisManager : MonoBehaviour
 {
     private Rigidbody2D rb;
-    public float colResistance = 3;
 
     void Start()
     {
@@ -25,7 +24,7 @@ public class DebrisManager : MonoBehaviour
         {
             print(collision.relativeVelocity.magnitude);
 
-            if(collision.relativeVelocity.magnitude >= colResistance)
+            if(collision.relativeVelocity.magnitude >= collision.gameObject.GetComponent<PlayerMovement>().colResistance)
             {
                 collision.gameObject.GetComponent<PlayerManager>().oxygenAmount -= collision.relativeVelocity.magnitude;
             }
