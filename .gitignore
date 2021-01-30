@@ -1,0 +1,13 @@
+Temp/*
+Assembly-CSharp.Player.csproj
+Assembly-CSharp.csproj
+Library/ArtifactDB
+Library/CurrentLayout-default.dwlt
+Library/SceneVisibilityState.asset
+Library/ScriptAssemblies/Assembly-CSharp.dll
+Library/ScriptAssemblies/Assembly-CSharp.pdb
+Library/ShaderCache/EditorEncounteredVariants
+Library/SourceAssetDB
+Library/StateCache/SceneView/cc/cc57291f3b9eaf93a6cbbdf21f48c463.json
+obj/Debug/Assembly-CSharp.Player.csprojAssemblyReference.cache
+obj/Debug/Assembly-CSharp.csprojAssemblyReference.cache
