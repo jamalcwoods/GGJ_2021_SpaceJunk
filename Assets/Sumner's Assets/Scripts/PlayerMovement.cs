@@ -18,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
     // how fast fuel gets used up
     public float fuelConsumptionRate = 1f;
 
+    public float colResistance = 3;
+
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
