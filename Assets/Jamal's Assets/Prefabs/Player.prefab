@@ -957,7 +957,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 0
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -4945,3 +4945,4 @@ MonoBehaviour:
   rotationRate: 3
   thrust: 1
   fuelConsumptionRate: 1
+  colResistance: 3
