@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     private GameObject ItemPreab, playerPrefab, debriPrefab, shipPrefab;
 
     [SerializeField]
-    private GameObject oxygenBar;
+    private GameObject oxygenBar,fuelBar;
 
     [SerializeField]
     private GameObject stats;
@@ -158,12 +158,22 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RectTransform r = oxygenBar.GetComponent<RectTransform>();
-        r.sizeDelta = new Vector2(600f * (playerInstance.GetComponent<PlayerManager>().oxygenAmount / 100), r.sizeDelta.y);
+        RectTransform R = oxygenBar.GetComponent<RectTransform>();
+        R.sizeDelta = new Vector2(600f * (playerInstance.GetComponent<PlayerManager>().oxygenAmount / 100), R.sizeDelta.y);
 
         stats.GetComponent<Text>().text = "" +
         "Oxygen Efficiency: " + (2 - playerInstance.GetComponent<PlayerManager>().oxygenTickRate) * 100 + "%\n" +
         "Armor : " + playerInstance.GetComponent<PlayerMovement>().colResistance + "\n" +
         "Propulsion Calibration: " + playerInstance.GetComponent<Rigidbody2D>().drag;
+
+        if(playerInstance.GetComponent<PlayerManager>().currentPropellant != PropellantTypes.Suit)
+        {
+            RectTransform r = fuelBar.GetComponent<RectTransform>();
+            r.sizeDelta = new Vector2(600f * (playerInstance.GetComponent<PlayerManager>().propellantFuel / 100), r.sizeDelta.y);
+        } else
+        {
+            RectTransform r = fuelBar.GetComponent<RectTransform>();
+            r.sizeDelta = new Vector2(0, r.sizeDelta.y);
+        }
     }
 }
