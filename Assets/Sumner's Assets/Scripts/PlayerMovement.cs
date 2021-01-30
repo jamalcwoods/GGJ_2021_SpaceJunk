@@ -15,6 +15,9 @@ public class PlayerMovement : MonoBehaviour
     // how fast does the player get accelerated
     public float thrust = 1f;
 
+    // how fast fuel gets used up
+    public float fuelConsumptionRate = 1f;
+
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -30,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
         // when space is down, add force in local "up" direction and emit particles
         if (Input.GetKey(KeyCode.Space))
         {
-            manager.propellantFuel -= Time.deltaTime;
+            manager.propellantFuel -= Time.deltaTime * fuelConsumptionRate;
             particles.Emit(5);
             rb.AddForce(gameObject.transform.up * thrust);
         }
