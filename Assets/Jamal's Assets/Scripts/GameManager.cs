@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
 
     [SerializeField]
-    private GameObject ItemPreab, playerPrefab, debriPrefab;
+    private GameObject ItemPreab, playerPrefab, debriPrefab, shipPrefab;
 
     [SerializeField]
     private GameObject oxygenBar;
@@ -97,17 +97,47 @@ public class GameManager : MonoBehaviour
             entityInstances.Add(g);
         }
 
+
         playerInstance = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
         Vector3 V = new Vector3(Random.Range(-spawnRange, spawnRange), Random.Range(-spawnRange, spawnRange), 0);
         while (!checkForOpenSpawn(V))
         {
             V = new Vector3(Random.Range(-spawnRange, spawnRange), Random.Range(-spawnRange, spawnRange), 0);
         }
-        keyInstance= Instantiate(ItemPreab, V, Quaternion.identity);
+        keyInstance = Instantiate(ItemPreab, V, Quaternion.identity);
         keyInstance.transform.parent = transform;
-        ItemManager keys = keyInstance.GetComponent<ItemManager>();
-        keys.Type = ItemTypes.Collectable;
-        keys.CType = CollectableTypes.Keys;
+        ItemManager Item = keyInstance.GetComponent<ItemManager>();
+        Item.Type = ItemTypes.Collectable;
+        Item.CType = CollectableTypes.Keys;
+        Item.GetComponent<SpriteRenderer>().color = Color.yellow;
+        Item.transform.localScale = new Vector3(3, 3, 1);
+
+        SpawnShip();
+    }
+
+    private void SpawnShip()
+    {
+        int shipEdge = Mathf.RoundToInt(Random.Range(0, 4));
+
+        // 0:up, 1:right, 2:down, 3:left
+        switch (shipEdge)
+        {
+            case 0:
+                Instantiate(shipPrefab, new Vector2(Random.Range(-55, 55), 60), Quaternion.identity);
+                break;
+
+            case 1:
+                Instantiate(shipPrefab, new Vector2(60, Random.Range(-55, 55)), Quaternion.identity);
+                break;
+
+            case 2:
+                Instantiate(shipPrefab, new Vector2(Random.Range(-55, 55), -60), Quaternion.identity);
+                break;
+
+            case 3:
+                Instantiate(shipPrefab, new Vector2(-60, Random.Range(-55, 55)), Quaternion.identity);
+                break;
+        }
     }
 
     bool checkForOpenSpawn(Vector3 v)
