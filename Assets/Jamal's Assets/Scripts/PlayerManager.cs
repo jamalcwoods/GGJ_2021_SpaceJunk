@@ -6,8 +6,8 @@ public class PlayerManager : MonoBehaviour
 {
     private float oxygenAmount;
     private float fuelAmount;
-    private float propellantFuel;
-    private PropellantTypes currentPropellant;
+    public float propellantFuel;
+    public PropellantTypes currentPropellant;
     private CollectableTypes currentCollectable;
 
 
