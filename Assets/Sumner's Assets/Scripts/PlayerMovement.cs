@@ -25,6 +25,14 @@ public class PlayerMovement : MonoBehaviour
         manager = gameObject.GetComponent<PlayerManager>();
     }
 
+    private void Update()
+    {
+        if (manager.currentPropellant == PropellantTypes.Popper)
+        {
+            ThrustImpulse();
+        }
+    }
+
     void FixedUpdate()
     {
         // adds current horizontal input axis value to z axis rotation

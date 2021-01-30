@@ -2,5 +2,6 @@
 {
     FireExt,
     Jetpack,
-    SolarSail
+    SolarSail,
+    Popper
 }
