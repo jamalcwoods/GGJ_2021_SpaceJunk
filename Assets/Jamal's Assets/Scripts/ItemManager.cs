@@ -59,6 +59,7 @@ public class ItemManager : MonoBehaviour
                     break;
 
                 case ItemTypes.Oxygen:
+                    p.oxygenPickedUp++;
                     collision.gameObject.GetComponent<PlayerManager>().oxygenAmount += oxygenReplinishAmount;
                     if(collision.gameObject.GetComponent<PlayerManager>().oxygenAmount > 100)
                     {
@@ -67,6 +68,7 @@ public class ItemManager : MonoBehaviour
                     break;
 
                 case ItemTypes.Collectable:
+                    p.collectablesPickedUp++;
                     switch (cType)
                     {
                         case CollectableTypes.Armor:
@@ -78,7 +80,7 @@ public class ItemManager : MonoBehaviour
                             break;
 
                         case CollectableTypes.Rebreather:
-                            p.oxygenTickRate *= 0.25f;
+                            p.oxygenTickRate *= 0.8f;
                             if(p.oxygenTickRate < 0.2)
                             {
                                 p.oxygenTickRate = 0.2f;
@@ -86,7 +88,11 @@ public class ItemManager : MonoBehaviour
                             break;
 
                         case CollectableTypes.PropulsionComputer:
-                            collision.gameObject.GetComponent<Rigidbody2D>().drag += 0.5f;
+                            collision.gameObject.GetComponent<Rigidbody2D>().drag += 0.1f;
+                            if(collision.gameObject.GetComponent<Rigidbody2D>().drag > 0.7f)
+                            {
+                                collision.gameObject.GetComponent<Rigidbody2D>().drag = 0.7f;
+                            }
                             break;
                     }
                     break;

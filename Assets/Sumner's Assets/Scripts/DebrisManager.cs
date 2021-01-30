@@ -29,14 +29,14 @@ public class DebrisManager : MonoBehaviour
         if (collision.gameObject.GetComponent<PlayerManager>())
         {
             print(collision.relativeVelocity.magnitude);
-
+            collision.gameObject.GetComponent<PlayerManager>().numberOfCollisions++;
             if (collision.relativeVelocity.magnitude >= collision.gameObject.GetComponent<PlayerMovement>().colResistance)
             {
                 collision.gameObject.GetComponent<PlayerManager>().oxygenAmount -= collision.relativeVelocity.magnitude * 5;
 
                 if(collision.gameObject.GetComponent<PlayerManager>().currentPropellant == PropellantTypes.SolarSail)
                 {
-                    collision.gameObject.GetComponent<PlayerManager>().propellantFuel -= 25;
+                    collision.gameObject.GetComponent<PlayerManager>().propellantFuel -= collision.relativeVelocity.magnitude * 7.5f; 
                 }
             }
         }

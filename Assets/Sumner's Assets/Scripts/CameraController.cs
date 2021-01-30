@@ -13,11 +13,13 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        if(player == null)
+        if (player == null)
         {
             player = GameObject.FindWithTag("Player");
         }
-
-        gameObject.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -5);
+        else
+        {
+            gameObject.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -5);
+        }
     }
 }

@@ -16,12 +16,15 @@ public class GameManager : MonoBehaviour
     private GameObject endGameScreen;
 
     [SerializeField]
+    private Text postGameStats;
+
+    [SerializeField]
     private GameObject stats;
 
     private int spawnRange = 50;
     private int oxygenSpawnAmount = 120;
-    private int propellantSpawnAmount = 120;
-    private int collectableSpawnAmount = 80;
+    private int propellantSpawnAmount = 200;
+    private int collectableSpawnAmount = 160;
     private int debriSpawnAmount = 450;
 
     private int minDebriSize = 1;
@@ -205,28 +208,44 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RectTransform R = oxygenBar.GetComponent<RectTransform>();
-        R.sizeDelta = new Vector2(600f * (playerInstance.GetComponent<PlayerManager>().oxygenAmount / 100), R.sizeDelta.y);
-
-        stats.GetComponent<Text>().text = "" +
-        "Oxygen Efficiency: " + (2 - playerInstance.GetComponent<PlayerManager>().oxygenTickRate) * 100 + "%\n" +
-        "Armor : " + playerInstance.GetComponent<PlayerMovement>().colResistance + "\n" +
-        "Propulsion Calibration: " + playerInstance.GetComponent<Rigidbody2D>().drag;
-
-        if(playerInstance.GetComponent<PlayerManager>().currentPropellant != PropellantTypes.Suit)
+        if (playerInstance != null)
         {
-            RectTransform r = fuelBar.GetComponent<RectTransform>();
-            r.sizeDelta = new Vector2(600f * (playerInstance.GetComponent<PlayerManager>().propellantFuel / 100), r.sizeDelta.y);
-        } else
-        {
-            RectTransform r = fuelBar.GetComponent<RectTransform>();
-            r.sizeDelta = new Vector2(0, r.sizeDelta.y);
-        }
+            RectTransform R = oxygenBar.GetComponent<RectTransform>();
+            R.sizeDelta = new Vector2(600f * (playerInstance.GetComponent<PlayerManager>().oxygenAmount / 100), R.sizeDelta.y);
 
-        if (playerInstance.GetComponent<PlayerManager>().oxygenAmount < 0)
-        {
-            playerInstance.SetActive(false);
-            endGameScreen.SetActive(true);
+            stats.GetComponent<Text>().text = "" +
+            "Oxygen Efficiency: " + (2 - playerInstance.GetComponent<PlayerManager>().oxygenTickRate) * 100 + "%\n" +
+            "Armor : " + playerInstance.GetComponent<PlayerMovement>().colResistance + "\n" +
+            "Propulsion Calibration: " + playerInstance.GetComponent<Rigidbody2D>().drag + "\n" +
+            "Distance Traveled: " + playerInstance.GetComponent<PlayerManager>().distanceTraveled.ToString("F2") + "m";
+
+       
+            if (playerInstance.GetComponent<PlayerManager>().currentPropellant != PropellantTypes.Suit)
+            {
+                RectTransform r = fuelBar.GetComponent<RectTransform>();
+                r.sizeDelta = new Vector2(600f * (playerInstance.GetComponent<PlayerManager>().propellantFuel / 100), r.sizeDelta.y);
+            }
+            else
+            {
+                RectTransform r = fuelBar.GetComponent<RectTransform>();
+                r.sizeDelta = new Vector2(0, r.sizeDelta.y);
+            }
+
+            if (playerInstance.GetComponent<PlayerManager>().oxygenAmount < 0)
+            {
+                PlayerManager p = playerInstance.GetComponent<PlayerManager>();
+                playerInstance.SetActive(false);
+                endGameScreen.SetActive(true);
+                postGameStats.text = "" +
+                "Number of Collisions: " + p.numberOfCollisions + "\n" +
+                "Number of Propellants Found: " + p.propellantsPickedUp + "\n" +
+                "Number of Collectables Found: " + p.collectablesPickedUp + "\n" +
+                "Number of Oxygen Sources Found: " + p.oxygenPickedUp + "\n";
+                foreach (KeyValuePair<PropellantTypes,float> pair in p.distanceLibrary)
+                {
+                    postGameStats.text += "Distance Traveled by " + pair.Key + ": " + pair.Value.ToString("F2") + "\n";
+                }
+            }
         }
     }
 }

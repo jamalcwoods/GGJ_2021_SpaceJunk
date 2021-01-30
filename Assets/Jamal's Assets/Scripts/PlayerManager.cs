@@ -10,6 +10,19 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]
     public float oxygenAmount;
 
+    public float distanceTraveled;
+
+    public int numberOfCollisions;
+
+    public int collectablesPickedUp;
+
+    public int oxygenPickedUp;
+
+    public int propellantsPickedUp;
+
+    public Dictionary<PropellantTypes, float> distanceLibrary = new Dictionary<PropellantTypes, float>(); 
+
+    private Vector3 lastPosition;
     [SerializeField]
     public float oxygenTickRate;
     public float propellantFuel;
@@ -21,6 +34,9 @@ public class PlayerManager : MonoBehaviour
     {
         currentPropellant = PropellantTypes.Jetpack;
         propellantFuel = 50;
+        lastPosition = transform.position;
+        distanceLibrary[PropellantTypes.Suit] = 0;
+        distanceLibrary[PropellantTypes.Jetpack] = 0;
     }
 
     // Update is called once per frame
@@ -32,11 +48,17 @@ public class PlayerManager : MonoBehaviour
             propellantFuel = 1;
             currentPropellant = PropellantTypes.Suit;
         }
+        distanceTraveled += Vector3.Distance(lastPosition, transform.position);
+        distanceLibrary[currentPropellant] += Vector3.Distance(lastPosition, transform.position);
+        lastPosition = transform.position;
     }
 
     public void SetPropellant(PropellantTypes p)
     {
+        propellantsPickedUp++;
         propellantFuel = 100;
+        distanceLibrary[p] = 0;
         currentPropellant = p;
+        
     }
 }
