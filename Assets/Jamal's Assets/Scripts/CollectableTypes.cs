@@ -2,5 +2,6 @@
 {
     Rebreather,
     Armor,
-    PropulsionComputer
+    PropulsionComputer,
+    Keys
 }

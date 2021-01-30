@@ -1,5 +1,6 @@
 ﻿public enum ItemTypes
 {
     Oxygen,
-    Propellant
+    Propellant,
+    Collectable
 }

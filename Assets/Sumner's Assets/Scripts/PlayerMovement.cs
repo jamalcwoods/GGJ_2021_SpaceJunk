@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     public float colResistance = 1;
 
     // how fast oxygen gets used up when using suit as propullsion
-    public float oxygenConsumptionRate = 1;
+    public float oxygenConsumptionRate = 4;
 
     private float popperCooldown = 1f;
     private float curCooldown = 0f;
@@ -85,13 +85,13 @@ public class PlayerMovement : MonoBehaviour
                 break;
 
             case PropellantTypes.SolarSail:
-                thrust = 0.1f;
+                thrust = 0.75f;
                 rotationRate = 3f;
                 fuelConsumptionRate = 0f;
                 break;
 
             case PropellantTypes.Suit:
-                thrust = 0.1f;
+                thrust = 0.4f;
                 rotationRate = 3f;
                 fuelConsumptionRate = 0f;
                 break;

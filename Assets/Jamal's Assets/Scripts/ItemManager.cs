@@ -6,6 +6,7 @@ public class ItemManager : MonoBehaviour
 {
     private ItemTypes type;
     private PropellantTypes pType;
+    private CollectableTypes cType;
     private float oxygenReplinishAmount;
 
 
@@ -43,10 +44,12 @@ public class ItemManager : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerManager>())
         {
+            PlayerManager p = collision.gameObject.GetComponent<PlayerManager>();
+            PlayerMovement pm = collision.gameObject.GetComponent<PlayerMovement>();
             switch (type)
             {
                 case ItemTypes.Propellant:
-                    collision.gameObject.GetComponent<PlayerManager>().SetPropellant(pType);
+                    p.SetPropellant(pType);
                     break;
 
                 case ItemTypes.Oxygen:
@@ -54,6 +57,27 @@ public class ItemManager : MonoBehaviour
                     if(collision.gameObject.GetComponent<PlayerManager>().oxygenAmount > 100)
                     {
                         collision.gameObject.GetComponent<PlayerManager>().oxygenAmount = 100;
+                    }
+                    break;
+
+                case ItemTypes.Collectable:
+                    switch (cType)
+                    {
+                        case CollectableTypes.Armor:
+                            pm.colResistance += 2;
+                            break;
+
+                        case CollectableTypes.Keys:
+                            p.hasKeys = true;
+                            break;
+
+                        case CollectableTypes.Rebreather:
+                            p.oxygenTickRate *= 0.75f;
+                            break;
+
+                        case CollectableTypes.PropulsionComputer:
+                            collision.gameObject.GetComponent<Rigidbody2D>().angularDrag *= 0.75f;
+                            break;
                     }
                     break;
             }
