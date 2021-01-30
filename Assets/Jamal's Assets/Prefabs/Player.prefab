@@ -4946,4 +4946,4 @@ MonoBehaviour:
   rotationRate: 3
   thrust: 1
   fuelConsumptionRate: 1
-  colResistance: 3
+  colResistance: 1

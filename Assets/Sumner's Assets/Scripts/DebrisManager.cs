@@ -25,7 +25,7 @@ public class DebrisManager : MonoBehaviour
 
             if (collision.relativeVelocity.magnitude >= collision.gameObject.GetComponent<PlayerMovement>().colResistance)
             {
-                collision.gameObject.GetComponent<PlayerManager>().oxygenAmount -= collision.relativeVelocity.magnitude;
+                collision.gameObject.GetComponent<PlayerManager>().oxygenAmount -= collision.relativeVelocity.magnitude * 5;
 
                 if(collision.gameObject.GetComponent<PlayerManager>().currentPropellant == PropellantTypes.SolarSail)
                 {

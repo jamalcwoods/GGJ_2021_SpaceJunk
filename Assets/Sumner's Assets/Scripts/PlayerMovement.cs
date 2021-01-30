@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     public float fuelConsumptionRate = 1f;
 
     // the threshold where the player loses oxygen from collisions
-    public float colResistance = 3;
+    public float colResistance = 1;
 
     private float popperCooldown = 1f;
     private float curCooldown = 0f;
@@ -66,13 +66,13 @@ public class PlayerMovement : MonoBehaviour
             case PropellantTypes.FireExt:
                 thrust = 2f;
                 rotationRate = 2f;
-                fuelConsumptionRate = 3f;
+                fuelConsumptionRate = 12f;
                 break;
 
             case PropellantTypes.Jetpack:
                 thrust = 0.5f;
                 rotationRate = 5f;
-                fuelConsumptionRate = 1.5f;
+                fuelConsumptionRate = 6f;
                 break;
 
             case PropellantTypes.Popper:
