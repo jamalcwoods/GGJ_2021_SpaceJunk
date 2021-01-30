@@ -5,6 +5,7 @@ using UnityEngine;
 public class DebrisManager : MonoBehaviour
 {
     private Rigidbody2D rb;
+    public float colResistance = 3;
 
     void Start()
     {
@@ -16,5 +17,16 @@ public class DebrisManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<PlayerManager>())
+        {
+            if(collision.relativeVelocity.magnitude >= 3)
+            {
+                collision.gameObject.GetComponent<PlayerManager>().OxygenAmount -= collision.relativeVelocity.magnitude;
+            }
+        }
     }
 }
