@@ -100,7 +100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50f561ba036a0af46843602ea7e231db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  oxygenAmount: 0
+  oxygenAmount: 100
+  oxygenTickRate: 1
   propellantFuel: 0
   currentPropellant: 0
 --- !u!50 &8996130205172981644
