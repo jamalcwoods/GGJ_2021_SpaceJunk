@@ -17,4 +17,12 @@ public class DebrisManager : MonoBehaviour
     {
         
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<PlayerManager>())
+        {
+            //remove oxygen from player
+        }
+    }
 }

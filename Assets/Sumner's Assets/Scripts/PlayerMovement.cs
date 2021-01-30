@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerManager manager;
 
     // how fast can the player spin
-    public float rotationRate = 1f;
+    public float rotationRate = 4f;
 
     // how fast does the player get accelerated
     public float thrust = 1f;
