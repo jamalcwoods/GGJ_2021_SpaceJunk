@@ -5,10 +5,13 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     [SerializeField]
+    public bool hasKeys;
+
+    [SerializeField]
     public float oxygenAmount;
 
     [SerializeField]
-    private float oxygenTickRate;
+    public float oxygenTickRate;
     public float propellantFuel;
     [SerializeField]
     public PropellantTypes currentPropellant;
@@ -24,7 +27,7 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         oxygenAmount -= Time.deltaTime * oxygenTickRate;
-        if(propellantFuel < 0)
+        if(propellantFuel <= 0)
         {
             propellantFuel = 1;
             currentPropellant = PropellantTypes.Suit;

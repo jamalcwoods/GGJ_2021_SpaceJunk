@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     private GameObject ItemPreab, playerPrefab, debriPrefab;
 
     private int spawnRange = 50;
-    private int oxygenSpawnAmount = 80;
+    private int oxygenSpawnAmount = 90;
     private int propellantSpawnAmount = 60;
     private int debriSpawnAmount = 360;
 
