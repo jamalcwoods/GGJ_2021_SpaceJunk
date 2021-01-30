@@ -51,6 +51,10 @@ public class ItemManager : MonoBehaviour
 
                 case ItemTypes.Oxygen:
                     collision.gameObject.GetComponent<PlayerManager>().oxygenAmount += oxygenReplinishAmount;
+                    if(collision.gameObject.GetComponent<PlayerManager>().oxygenAmount > 100)
+                    {
+                        collision.gameObject.GetComponent<PlayerManager>().oxygenAmount = 100;
+                    }
                     break;
             }
             gameObject.SetActive(false);

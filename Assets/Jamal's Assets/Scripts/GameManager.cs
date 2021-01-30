@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
             }
             GameObject g = Instantiate(ItemPreab, v,Quaternion.identity);
             ItemManager item = g.GetComponent<ItemManager>();
+            g.transform.parent = transform;
             item.Type = ItemTypes.Oxygen;
             item.OxygenReplinishAmount = 20;
             item.GetComponent<SpriteRenderer>().color = Color.blue;
@@ -44,6 +45,7 @@ public class GameManager : MonoBehaviour
                 v = new Vector3(Random.Range(-spawnRange, spawnRange), Random.Range(-spawnRange, spawnRange), 0);
             }
             GameObject g = Instantiate(ItemPreab, v, Quaternion.identity);
+            g.transform.parent = transform;
             ItemManager item = g.GetComponent<ItemManager>();
             item.Type = ItemTypes.Propellant;
             int pIndex = Random.Range(0, 4);
@@ -61,6 +63,7 @@ public class GameManager : MonoBehaviour
                 v = new Vector3(Random.Range(-spawnRange, spawnRange), Random.Range(-spawnRange, spawnRange), 0);
             }
             GameObject g = Instantiate(debriPrefab, v, Quaternion.identity);
+            g.transform.parent = transform;
             int size = Random.Range(minDebriSize, maxDebriSize);
             g.transform.localScale = new Vector3(size,size,1);
             debriInstances.Add(g);

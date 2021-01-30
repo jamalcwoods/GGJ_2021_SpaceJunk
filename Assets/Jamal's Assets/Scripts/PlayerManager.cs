@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    [SerializeField]
     public float oxygenAmount;
+
+    [SerializeField]
     private float oxygenTickRate;
     private float fuelAmount;
     public float propellantFuel;
@@ -21,7 +24,7 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        oxygenAmount -= Time.deltaTime * oxygenTickRate;
     }
 
     public void SetPropellant(PropellantTypes p)
