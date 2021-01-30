@@ -18,7 +18,7 @@ public class DebrisManager : MonoBehaviour
 
     void Update()
     {
-        if(transform.position.x > 55 || transform.position.x < -55 || transform.position.y > 55 || transform.position.y < -55)
+        if((transform.position.x > 55 || transform.position.x < -55 || transform.position.y > 55 || transform.position.y < -55) && (cam.WorldToViewportPoint(transform.position).x > 1 || cam.WorldToViewportPoint(transform.position).x < 0 || cam.WorldToViewportPoint(transform.position).y > 1 || cam.WorldToViewportPoint(transform.position).y < 0))
         {
             ResetPosition();
         }
