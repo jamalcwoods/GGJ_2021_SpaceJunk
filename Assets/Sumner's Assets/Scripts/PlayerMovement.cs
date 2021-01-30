@@ -31,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
         {
             ThrustImpulse();
         }
+
+        rb.angularVelocity = 0;
     }
 
     void FixedUpdate()
