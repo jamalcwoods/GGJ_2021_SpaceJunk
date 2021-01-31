@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -27,6 +28,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Sprite[] itemSprites;
 
+    [SerializeField]
+    private Sprite[] largeDebriSprites, smallDebriSprites, defaultDebriSprites;
+
     private int spawnRange = 50;
     private int oxygenSpawnAmount = 120;
     private int propellantSpawnAmount = 200;
@@ -34,7 +38,7 @@ public class GameManager : MonoBehaviour
     private int debriSpawnAmount = 450;
 
     private int minDebriSize = 1;
-    private int maxDebriSize = 4;
+    private int maxDebriSize = 5;
 
     private GameObject playerInstance, keyInstance, shipInstance;
 
@@ -111,6 +115,20 @@ public class GameManager : MonoBehaviour
             int size = Random.Range(minDebriSize, maxDebriSize);
             g.transform.localScale = new Vector3(size, size, 1);
             g.GetComponent<Rigidbody2D>().mass *= size;
+            switch (size)
+            {
+                case 2:
+                    g.GetComponent<SpriteRenderer>().sprite = smallDebriSprites[Random.Range(0, smallDebriSprites.Length)];
+                    break;
+
+                case 4:
+                    g.GetComponent<SpriteRenderer>().sprite = largeDebriSprites[Random.Range(0, largeDebriSprites.Length)];
+                    break;
+
+                default:
+                    g.GetComponent<SpriteRenderer>().sprite = defaultDebriSprites[Random.Range(0, defaultDebriSprites.Length)];
+                    break;
+            }
             debriInstances.Add(g);
             entityInstances.Add(g);
         }
@@ -156,12 +174,7 @@ public class GameManager : MonoBehaviour
 
     public void restartGame()
     {
-        foreach(GameObject g in entityInstances)
-        {
-           Destroy(g);
-        }
-        endGameScreen.SetActive(false);
-        startGame();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void startGame()
