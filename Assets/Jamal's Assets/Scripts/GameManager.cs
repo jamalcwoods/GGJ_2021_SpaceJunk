@@ -271,11 +271,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            WinGame();
-        }
-
         foreach (GameObject g in entityInstances)
         {
             Camera cam = Camera.main;
