@@ -1179,7 +1179,7 @@ Camera:
   m_GameObject: {fileID: 316398091}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -1250,7 +1250,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 75b9264177c77fb4abfd19dadc74d3f0, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 8f21eada739ef194bb7b8d71e8992280, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -2841,8 +2841,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 3
-      minScalar: 1
+      scalar: 1
+      minScalar: 0.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -9902,16 +9902,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: bfc33ea80b15ec24cbeeee7532152cef, type: 3}
   - {fileID: 21300000, guid: cdd15b776c9fc6149a651c094b77b00f, type: 3}
   - {fileID: 21300000, guid: 0ec6f121a6511c749b9e58ca0fddbec8, type: 3}
-  colliders:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!1 &1772409045
 GameObject:
   m_ObjectHideFlags: 0

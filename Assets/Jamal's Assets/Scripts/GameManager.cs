@@ -27,9 +27,6 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Sprite[] itemSprites;
 
-    [SerializeField]
-    private PolygonCollider2D[] colliders;
-
     private int spawnRange = 50;
     private int oxygenSpawnAmount = 120;
     private int propellantSpawnAmount = 200;

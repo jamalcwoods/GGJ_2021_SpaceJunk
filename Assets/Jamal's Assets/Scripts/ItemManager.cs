@@ -9,6 +9,7 @@ public class ItemManager : MonoBehaviour
     private CollectableTypes cType;
     private float oxygenReplinishAmount;
     [SerializeField] private AudioClip pickup;
+    public PolygonCollider2D[] polygons;
 
 
     public ItemTypes Type
@@ -37,13 +38,60 @@ public class ItemManager : MonoBehaviour
 
     void Start()
     {
-
+        polygons = gameObject.GetComponents<PolygonCollider2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        switch (type)
+        {
+            case ItemTypes.Collectable:
+                switch (cType)
+                {
+                    case CollectableTypes.Rebreather:
+                        polygons[0].enabled = true;
+                        break;
 
+                    case CollectableTypes.Armor:
+                        polygons[1].enabled = true;
+                        break;
+
+                    case CollectableTypes.PropulsionComputer:
+                        polygons[2].enabled = true;
+                        break;
+
+                    case CollectableTypes.Keys:
+                        polygons[7].enabled = true;
+                        break;
+                }
+                break;
+
+            case ItemTypes.Propellant:
+                switch (pType)
+                {
+                    case PropellantTypes.FireExt:
+                        polygons[3].enabled = true;
+                        break;
+
+                    case PropellantTypes.Jetpack:
+                        polygons[4].enabled = true;
+                        break;
+
+                    case PropellantTypes.SolarSail:
+                        polygons[5].enabled = true;
+                        break;
+
+                    case PropellantTypes.Popper:
+                        polygons[6].enabled = true;
+                        break;
+                }
+                break;
+
+            case ItemTypes.Oxygen:
+                polygons[8].enabled = true;
+                break;
+        }
     }
 
 
