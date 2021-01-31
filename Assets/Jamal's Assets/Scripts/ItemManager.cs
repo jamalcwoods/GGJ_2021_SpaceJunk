@@ -8,6 +8,7 @@ public class ItemManager : MonoBehaviour
     private PropellantTypes pType;
     private CollectableTypes cType;
     private float oxygenReplinishAmount;
+    [SerializeField] private AudioClip pickup;
 
 
     public ItemTypes Type
@@ -52,6 +53,7 @@ public class ItemManager : MonoBehaviour
         {
             PlayerManager p = collision.gameObject.GetComponent<PlayerManager>();
             PlayerMovement pm = collision.gameObject.GetComponent<PlayerMovement>();
+            pm.aSrcp.PlayOneShot(pickup);
             switch (type)
             {
                 case ItemTypes.Propellant:
