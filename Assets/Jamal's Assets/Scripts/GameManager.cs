@@ -158,7 +158,7 @@ public class GameManager : MonoBehaviour
     {
         foreach(GameObject g in entityInstances)
         {
-            GameObject.Destroy(g);
+           Destroy(g);
         }
         endGameScreen.SetActive(false);
         startGame();
@@ -227,7 +227,7 @@ public class GameManager : MonoBehaviour
             "Oxygen Efficiency: " + (2 - playerInstance.GetComponent<PlayerManager>().oxygenTickRate) * 100 + "%\n" +
             "Armor : " + playerInstance.GetComponent<PlayerMovement>().colResistance + "\n" +
             "Propulsion Calibration: " + playerInstance.GetComponent<Rigidbody2D>().drag + "\n" +
-            "Distance Traveled: " + playerInstance.GetComponent<PlayerManager>().distanceTraveled.ToString("F2") + "m";
+            "Total Distance Traveled: " + playerInstance.GetComponent<PlayerManager>().distanceTraveled.ToString("F2") + "m";
 
        
             if (playerInstance.GetComponent<PlayerManager>().currentPropellant != PropellantTypes.Suit)
@@ -254,7 +254,7 @@ public class GameManager : MonoBehaviour
                 "Number of Oxygen Sources Found: " + p.oxygenPickedUp + "\n";
                 foreach (KeyValuePair<PropellantTypes,float> pair in p.distanceLibrary)
                 {
-                    postGameStats.text += "Distance Traveled by " + pair.Key + ": " + pair.Value.ToString("F2") + "\n";
+                    postGameStats.text += "Distance Traveled by " + pair.Key + ": " + pair.Value.ToString("F2") + "m\n";
                 }
             }
         }

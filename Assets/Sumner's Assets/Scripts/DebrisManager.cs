@@ -42,7 +42,7 @@ public class DebrisManager : MonoBehaviour
 
                 if(collision.gameObject.GetComponent<PlayerManager>().currentPropellant == PropellantTypes.SolarSail)
                 {
-                    collision.gameObject.GetComponent<PlayerManager>().propellantFuel -= collision.relativeVelocity.magnitude * 7.5f; 
+                    collision.gameObject.GetComponent<PlayerManager>().propellantFuel -= collision.relativeVelocity.magnitude * 12.5f; 
                 }
             }
         }
