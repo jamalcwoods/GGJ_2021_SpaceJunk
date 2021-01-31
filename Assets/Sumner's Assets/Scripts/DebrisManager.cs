@@ -9,6 +9,7 @@ public class DebrisManager : MonoBehaviour
     private AudioSource aSrc;
     [SerializeField] private AudioClip[] clangs;
     [SerializeField] private AudioClip ouch;
+    public PolygonCollider2D[] polygons;
 
     void Start()
     {
@@ -18,6 +19,11 @@ public class DebrisManager : MonoBehaviour
 
         rb.AddTorque(Random.Range(-1, 1));
         rb.AddForce(new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f)), ForceMode2D.Impulse);
+    }
+
+    public void setTextureCollider(int i)
+    {
+        polygons[i].enabled = true;
     }
 
     void Update()
