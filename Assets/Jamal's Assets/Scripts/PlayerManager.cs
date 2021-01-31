@@ -63,7 +63,10 @@ public class PlayerManager : MonoBehaviour
         propellantsPickedUp++;
         propellantFuel = 100;
         distanceLibrary[p] = 0;
+        if(currentPropellant != PropellantTypes.Popper)
+        {
+            aSrc.Stop();
+        }
         currentPropellant = p;
-        aSrc.Stop();
     }
 }
