@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private AudioClip fireExtStart, fireExtEnd, fireExtSus, jetpackStart, jetpackEnd, jetpackSus, suitStart, suitEnd, suitSus, pop, horn;
     private AudioSource aSrc;
+    public AudioSource aSrcp;
 
     private PlayerManager manager;
 
@@ -37,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         manager = gameObject.GetComponent<PlayerManager>();
         aSrc = gameObject.GetComponent<AudioSource>();
+        aSrcp = gameObject.transform.Find("Propulsion").GetComponent<AudioSource>();
 
         fireExPart = gameObject.transform.Find("Propulsion").Find("FireExtinguisherParticles").gameObject;
         suitPart = gameObject.transform.Find("Propulsion").Find("SuitParticles").gameObject;
@@ -46,14 +48,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        SetThrustVariables();
+
+        PlaySounds();
+
         if (manager.currentPropellant == PropellantTypes.Popper)
         {
             ThrustImpulse();
         }
-
-        SetThrustVariables();
-
-        PlaySounds();
 
         rb.angularVelocity = 0;
     }
@@ -235,7 +237,7 @@ public class PlayerMovement : MonoBehaviour
                 break;
 
             case PropellantTypes.Popper:
-                if (Input.GetKeyDown(KeyCode.Space))
+                if (Input.GetKeyDown(KeyCode.Space) && curCooldown <= 0)
                 {
                     aSrc.loop = false;
                     aSrc.clip = pop;
