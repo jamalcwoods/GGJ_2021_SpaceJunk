@@ -234,7 +234,7 @@ public class GameManager : MonoBehaviour
         if (playerInstance != null)
         {
             RectTransform R = oxygenBar.GetComponent<RectTransform>();
-            R.sizeDelta = new Vector2(600f * (playerInstance.GetComponent<PlayerManager>().oxygenAmount / 100), R.sizeDelta.y);
+            R.sizeDelta = new Vector2(R.sizeDelta.x, 100f * (playerInstance.GetComponent<PlayerManager>().oxygenAmount / 100));
 
             stats.GetComponent<Text>().text = "" +
             "Oxygen Efficiency: " + (2 - playerInstance.GetComponent<PlayerManager>().oxygenTickRate) * 100 + "%\n" +
