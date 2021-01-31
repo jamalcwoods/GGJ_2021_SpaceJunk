@@ -121,8 +121,7 @@ public class GameManager : MonoBehaviour
                 case 2:
                     int s = Random.Range(0, smallDebriSprites.Length);
                     g.GetComponent<SpriteRenderer>().sprite = smallDebriSprites[s];
-                    g.GetComponent<DebrisManager>().setTextureCollider(0); // TEMP
-                    //g.GetComponent<DebrisManager>().setTextureCollider(largeDebriSprites.Length + s);
+                    g.GetComponent<DebrisManager>().setTextureCollider(1 + largeDebriSprites.Length + s);
                     break;
 
                 case 4:
@@ -253,12 +252,12 @@ public class GameManager : MonoBehaviour
             if (playerInstance.GetComponent<PlayerManager>().currentPropellant != PropellantTypes.Suit)
             {
                 RectTransform r = fuelBar.GetComponent<RectTransform>();
-                r.sizeDelta = new Vector2(600f * (playerInstance.GetComponent<PlayerManager>().propellantFuel / 100), r.sizeDelta.y);
+                r.sizeDelta = new Vector2(r.sizeDelta.x, 600f * (playerInstance.GetComponent<PlayerManager>().propellantFuel / 100));
             }
             else
             {
                 RectTransform r = fuelBar.GetComponent<RectTransform>();
-                r.sizeDelta = new Vector2(0, r.sizeDelta.y);
+                r.sizeDelta = new Vector2(r.sizeDelta.x,0);
             }
 
             if (playerInstance.GetComponent<PlayerManager>().oxygenAmount < 0 && playerInstance.activeSelf)
