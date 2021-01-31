@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
             item.CType = (CollectableTypes)cIndex;
             // magenta - rebreather, white - armor, gray - propulsion computer
             item.GetComponent<SpriteRenderer>().sprite = new Sprite[] { itemSprites[0], itemSprites[1], itemSprites[2] }[cIndex];
+            item.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-180, 180));
             itemInstances.Add(g);
             entityInstances.Add(g);
         }
@@ -84,6 +85,7 @@ public class GameManager : MonoBehaviour
             item.PType = (PropellantTypes)pIndex;
             //red - fireExt, green - jetpack, yellow - solarsail, cyan - popper
             item.GetComponent<SpriteRenderer>().sprite = new Sprite[] { itemSprites[3], itemSprites[4], itemSprites[5], itemSprites[6] }[pIndex];
+            item.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-180, 180));
             itemInstances.Add(g);
             entityInstances.Add(g);
         }
@@ -126,6 +128,7 @@ public class GameManager : MonoBehaviour
         Item.Type = ItemTypes.Collectable;
         Item.CType = CollectableTypes.Keys;
         Item.GetComponent<SpriteRenderer>().sprite = itemSprites[7];
+        Item.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-180, 180));
         Item.transform.localScale = new Vector3(3, 3, 1);
         entityInstances.Add(keyInstance);
     }
@@ -145,6 +148,7 @@ public class GameManager : MonoBehaviour
             item.Type = ItemTypes.Oxygen;
             item.OxygenReplinishAmount = 20;
             item.GetComponent<SpriteRenderer>().sprite = itemSprites[8];
+            item.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-180, 180));
             itemInstances.Add(g);
             entityInstances.Add(g);
         }
