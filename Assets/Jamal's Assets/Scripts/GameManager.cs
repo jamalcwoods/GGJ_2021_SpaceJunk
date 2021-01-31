@@ -35,7 +35,15 @@ public class GameManager : MonoBehaviour
     private GameObject UI;
 
     [SerializeField]
+    private GameObject quitButton;
+
+    [SerializeField]
+    private GameObject restartButton;
+
+    [SerializeField]
     private Sprite winScreen;
+
+    private bool isPaused = false;
 
     private int spawnRange = 50;
     private int oxygenSpawnAmount = 120;
@@ -191,11 +199,15 @@ public class GameManager : MonoBehaviour
 
     public void restartGame()
     {
+        Time.timeScale = 1;
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void QuitGame()
     {
+        Time.timeScale = 1;
+
         SceneManager.LoadScene(0);
     }
 
@@ -271,6 +283,22 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Escape) && !isPaused)
+        {
+            Time.timeScale = 0;
+            isPaused = true;
+            restartButton.SetActive(true);
+            quitButton.SetActive(true);
+            Time.timeScale = 0;
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) && isPaused)
+        {
+            Time.timeScale = 1;
+            isPaused = false;
+            restartButton.SetActive(false);
+            quitButton.SetActive(false);
+        }
+
         foreach (GameObject g in entityInstances)
         {
             Camera cam = Camera.main;

@@ -105,6 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickup: {fileID: 8300000, guid: 2970460ea40d7194c99039ec6f45c727, type: 3}
+  gamemanager: {fileID: 0}
   polygons: []
 --- !u!60 &4036888316071804852
 PolygonCollider2D:
@@ -3090,7 +3091,7 @@ PolygonCollider2D:
   m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
