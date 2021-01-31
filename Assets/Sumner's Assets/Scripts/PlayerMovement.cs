@@ -7,6 +7,11 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
 
     private GameObject fireExPart, suitPart, jetpackPart, popperPart;
+    
+    [SerializeField]
+    private AudioClip fireExtStart, fireExtEnd, fireExtSus, jetpackStart, jetpackEnd, jetpackSus, suitStart, suitEnd, suitSus, pop, horn;
+    private AudioSource aSrc;
+
     private PlayerManager manager;
 
     // how fast can the player spin
@@ -31,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         manager = gameObject.GetComponent<PlayerManager>();
+        aSrc = gameObject.GetComponent<AudioSource>();
 
         fireExPart = gameObject.transform.Find("Propulsion").Find("FireExtinguisherParticles").gameObject;
         suitPart = gameObject.transform.Find("Propulsion").Find("SuitParticles").gameObject;
@@ -47,7 +53,9 @@ public class PlayerMovement : MonoBehaviour
 
         SetThrustVariables();
 
-       rb.angularVelocity = 0;
+        PlaySounds();
+
+        rb.angularVelocity = 0;
     }
 
     void FixedUpdate()
@@ -151,5 +159,94 @@ public class PlayerMovement : MonoBehaviour
     private void ThrustConstant()
     {
         rb.AddForce(gameObject.transform.Find("Propulsion").up * thrust);
+    }
+
+    private void PlaySounds()
+    {
+        switch (manager.currentPropellant)
+        {
+            case PropellantTypes.FireExt:
+                if (Input.GetKeyDown(KeyCode.Space) || (Input.GetKey(KeyCode.Space) && !aSrc.isPlaying && aSrc.clip != fireExtStart))
+                {
+                    aSrc.loop = false;
+                    aSrc.clip = fireExtStart;
+                    aSrc.Play();
+                }
+
+                if (Input.GetKeyUp(KeyCode.Space))
+                {
+                    aSrc.loop = false;
+                    aSrc.clip = fireExtEnd;
+                    aSrc.Play();
+                }
+
+                if(!aSrc.isPlaying && aSrc.clip == fireExtStart && Input.GetKey(KeyCode.Space))
+                {
+                    aSrc.loop = true;
+                    aSrc.clip = fireExtSus;
+                    aSrc.Play();
+                }
+                break;
+
+            case PropellantTypes.Jetpack:
+                if (Input.GetKeyDown(KeyCode.Space) || (Input.GetKey(KeyCode.Space) && !aSrc.isPlaying && aSrc.clip != jetpackStart))
+                {
+                    aSrc.loop = false;
+                    aSrc.clip = jetpackStart;
+                    aSrc.Play();
+                }
+
+                if (Input.GetKeyUp(KeyCode.Space))
+                {
+                    aSrc.loop = false;
+                    aSrc.clip = jetpackEnd;
+                    aSrc.Play();
+                }
+
+                if (!aSrc.isPlaying && aSrc.clip == jetpackStart && Input.GetKey(KeyCode.Space))
+                {
+                    aSrc.loop = true;
+                    aSrc.clip = jetpackSus;
+                    aSrc.Play();
+                }
+                break;
+
+            case PropellantTypes.Suit:
+                if (Input.GetKeyDown(KeyCode.Space) || (Input.GetKey(KeyCode.Space) && !aSrc.isPlaying && aSrc.clip != suitStart))
+                {
+                    aSrc.loop = false;
+                    aSrc.clip = suitStart;
+                    aSrc.Play();
+                }
+
+                if (Input.GetKeyUp(KeyCode.Space))
+                {
+                    aSrc.loop = false;
+                    aSrc.clip = suitEnd;
+                    aSrc.Play();
+                }
+
+                if (!aSrc.isPlaying && aSrc.clip == suitStart && Input.GetKey(KeyCode.Space))
+                {
+                    aSrc.loop = true;
+                    aSrc.clip = suitSus;
+                    aSrc.Play();
+                }
+                break;
+
+            case PropellantTypes.Popper:
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    aSrc.loop = false;
+                    aSrc.clip = pop;
+                    aSrc.Play();
+                    aSrc.PlayOneShot(horn);
+                }
+                break;
+
+            case PropellantTypes.SolarSail:
+                aSrc.Stop();
+                break;
+        }
     }
 }

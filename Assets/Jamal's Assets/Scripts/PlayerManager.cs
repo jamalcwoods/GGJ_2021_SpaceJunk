@@ -29,6 +29,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]
     public PropellantTypes currentPropellant;
 
+    private AudioSource aSrc;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +39,8 @@ public class PlayerManager : MonoBehaviour
         lastPosition = transform.position;
         distanceLibrary[PropellantTypes.Suit] = 0;
         distanceLibrary[PropellantTypes.Jetpack] = 0;
+
+        aSrc = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -47,6 +51,7 @@ public class PlayerManager : MonoBehaviour
         {
             propellantFuel = 1;
             currentPropellant = PropellantTypes.Suit;
+            aSrc.Stop();
         }
         distanceTraveled += Vector3.Distance(lastPosition, transform.position);
         distanceLibrary[currentPropellant] += Vector3.Distance(lastPosition, transform.position);
@@ -59,6 +64,6 @@ public class PlayerManager : MonoBehaviour
         propellantFuel = 100;
         distanceLibrary[p] = 0;
         currentPropellant = p;
-        
+        aSrc.Stop();
     }
 }

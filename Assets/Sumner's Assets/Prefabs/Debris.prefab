@@ -144,3 +144,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4170284785fac3844844f9d3df89ab1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clangs:
+  - {fileID: 8300000, guid: d595d01cbf94b8c4e9f20b0267e1b507, type: 3}
+  - {fileID: 8300000, guid: b189d2657324dbb4d9b00f2a5ae73148, type: 3}
+  - {fileID: 8300000, guid: 97b18f6b9f74832448fac418a94cb664, type: 3}
+  - {fileID: 8300000, guid: b0c170a5189c53e479e608c6cbc213c7, type: 3}
+  - {fileID: 8300000, guid: 73614cc2de635844ba4a0bda752ce6fb, type: 3}
+  - {fileID: 8300000, guid: a115aff6ced62a445aee75ad60f07dc0, type: 3}
+  - {fileID: 8300000, guid: b95b7792010293e48b69b922f3d3ad0d, type: 3}
+  - {fileID: 8300000, guid: 2f0904b0db8589d4bb905ff6b3bf8942, type: 3}

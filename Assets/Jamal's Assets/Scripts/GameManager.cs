@@ -21,6 +21,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject stats;
 
+    [SerializeField]
+    private Sprite[] itemSprites;
+
+    [SerializeField]
+    private PolygonCollider2D[] colliders;
+
     private int spawnRange = 50;
     private int oxygenSpawnAmount = 120;
     private int propellantSpawnAmount = 200;
@@ -55,7 +61,7 @@ public class GameManager : MonoBehaviour
             int cIndex = Random.Range(0, 3);
             item.CType = (CollectableTypes)cIndex;
             // magenta - rebreather, white - armor, gray - propulsion computer
-            item.GetComponent<SpriteRenderer>().color = new Color[] { Color.magenta, Color.white, Color.gray }[cIndex];
+            item.GetComponent<SpriteRenderer>().sprite = new Sprite[] { itemSprites[0], itemSprites[1], itemSprites[2] }[cIndex];
             itemInstances.Add(g);
             entityInstances.Add(g);
         }
@@ -77,7 +83,7 @@ public class GameManager : MonoBehaviour
             int pIndex = Random.Range(0, 4);
             item.PType = (PropellantTypes)pIndex;
             //red - fireExt, green - jetpack, yellow - solarsail, cyan - popper
-            item.GetComponent<SpriteRenderer>().color = new Color[] { Color.red, Color.green, Color.yellow, Color.cyan }[pIndex];
+            item.GetComponent<SpriteRenderer>().sprite = new Sprite[] { itemSprites[3], itemSprites[4], itemSprites[5], itemSprites[6] }[pIndex];
             itemInstances.Add(g);
             entityInstances.Add(g);
         }
@@ -119,7 +125,7 @@ public class GameManager : MonoBehaviour
         ItemManager Item = keyInstance.GetComponent<ItemManager>();
         Item.Type = ItemTypes.Collectable;
         Item.CType = CollectableTypes.Keys;
-        Item.GetComponent<SpriteRenderer>().color = Color.yellow;
+        Item.GetComponent<SpriteRenderer>().sprite = itemSprites[7];
         Item.transform.localScale = new Vector3(3, 3, 1);
         entityInstances.Add(keyInstance);
     }
@@ -138,7 +144,7 @@ public class GameManager : MonoBehaviour
             g.transform.parent = transform;
             item.Type = ItemTypes.Oxygen;
             item.OxygenReplinishAmount = 20;
-            item.GetComponent<SpriteRenderer>().color = Color.blue;
+            item.GetComponent<SpriteRenderer>().sprite = itemSprites[8];
             itemInstances.Add(g);
             entityInstances.Add(g);
         }
