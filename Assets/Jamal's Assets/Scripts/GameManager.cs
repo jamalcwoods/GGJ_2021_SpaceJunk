@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour
     private GameObject stats;
 
     [SerializeField]
+    private AudioClip death;
+
+    [SerializeField]
     private Sprite[] itemSprites;
 
     [SerializeField]
@@ -241,8 +244,9 @@ public class GameManager : MonoBehaviour
                 r.sizeDelta = new Vector2(0, r.sizeDelta.y);
             }
 
-            if (playerInstance.GetComponent<PlayerManager>().oxygenAmount < 0)
+            if (playerInstance.GetComponent<PlayerManager>().oxygenAmount < 0 && playerInstance.activeSelf)
             {
+                GameObject.FindWithTag("MainCamera").transform.Find("Stars").GetComponent<AudioSource>().PlayOneShot(death);
                 PlayerManager p = playerInstance.GetComponent<PlayerManager>();
                 playerInstance.SetActive(false);
                 endGameScreen.SetActive(true);

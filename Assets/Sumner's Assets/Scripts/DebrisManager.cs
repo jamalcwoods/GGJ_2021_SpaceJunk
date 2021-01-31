@@ -8,6 +8,7 @@ public class DebrisManager : MonoBehaviour
     private Camera cam;
     private AudioSource aSrc;
     [SerializeField] private AudioClip[] clangs;
+    [SerializeField] private AudioClip ouch;
 
     void Start()
     {
@@ -37,6 +38,7 @@ public class DebrisManager : MonoBehaviour
             if (collision.relativeVelocity.magnitude >= collision.gameObject.GetComponent<PlayerMovement>().colResistance)
             {
                 collision.gameObject.GetComponent<PlayerManager>().oxygenAmount -= collision.relativeVelocity.magnitude * 5;
+                aSrc.PlayOneShot(ouch);
 
                 if(collision.gameObject.GetComponent<PlayerManager>().currentPropellant == PropellantTypes.SolarSail)
                 {
