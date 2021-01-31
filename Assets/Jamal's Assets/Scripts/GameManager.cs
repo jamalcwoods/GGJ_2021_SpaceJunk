@@ -214,7 +214,7 @@ public class GameManager : MonoBehaviour
     public void WinGame()
     {
         PlayerManager p = playerInstance.GetComponent<PlayerManager>();
-        playerInstance.SetActive(false);
+        Destroy(playerInstance);
         endGameScreen.SetActive(true);
         endGameScreen.GetComponent<Image>().sprite = winScreen;
         UI.SetActive(false);
@@ -283,6 +283,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            WinGame();
+        }
+
         if(Input.GetKeyDown(KeyCode.Escape) && !isPaused)
         {
             Time.timeScale = 0;
