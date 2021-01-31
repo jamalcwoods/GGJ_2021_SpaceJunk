@@ -31,6 +31,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Sprite[] largeDebriSprites, smallDebriSprites, defaultDebriSprites;
 
+    [SerializeField]
+    private GameObject UI;
+
+    [SerializeField]
+    private Sprite winScreen;
+
     private int spawnRange = 50;
     private int oxygenSpawnAmount = 120;
     private int propellantSpawnAmount = 200;
@@ -188,6 +194,29 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public void QuitGame()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void WinGame()
+    {
+        PlayerManager p = playerInstance.GetComponent<PlayerManager>();
+        playerInstance.SetActive(false);
+        endGameScreen.SetActive(true);
+        endGameScreen.GetComponent<Image>().sprite = winScreen;
+        UI.SetActive(false);
+        postGameStats.text = "" +
+        "Number of Collisions: " + p.numberOfCollisions + "\n" +
+        "Number of Propellants Found: " + p.propellantsPickedUp + "\n" +
+        "Number of Collectables Found: " + p.collectablesPickedUp + "\n" +
+        "Number of Oxygen Sources Found: " + p.oxygenPickedUp + "\n";
+        foreach (KeyValuePair<PropellantTypes, float> pair in p.distanceLibrary)
+        {
+            postGameStats.text += "Distance Traveled by " + pair.Key + ": " + pair.Value.ToString("F2") + "m\n";
+        }
+    }
+
     private void startGame()
     {
         SpawnOxygen();
@@ -242,6 +271,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            WinGame();
+        }
+
         foreach (GameObject g in entityInstances)
         {
             Camera cam = Camera.main;
@@ -279,12 +313,12 @@ public class GameManager : MonoBehaviour
                 r.sizeDelta = new Vector2(r.sizeDelta.x,0);
             }
 
-            if (playerInstance.GetComponent<PlayerManager>().oxygenAmount < 0 && playerInstance.activeSelf)
+            if (playerInstance.GetComponent<PlayerManager>().oxygenAmount < 0)
             {
-                GameObject.FindWithTag("MainCamera").transform.Find("Stars").GetComponent<AudioSource>().PlayOneShot(death);
                 PlayerManager p = playerInstance.GetComponent<PlayerManager>();
                 playerInstance.SetActive(false);
                 endGameScreen.SetActive(true);
+                UI.SetActive(false);
                 postGameStats.text = "" +
                 "Number of Collisions: " + p.numberOfCollisions + "\n" +
                 "Number of Propellants Found: " + p.propellantsPickedUp + "\n" +

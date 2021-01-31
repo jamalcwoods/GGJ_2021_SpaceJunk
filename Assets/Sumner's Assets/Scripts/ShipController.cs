@@ -5,6 +5,12 @@ using UnityEngine;
 public class ShipController : MonoBehaviour
 {
     private PlayerManager player;
+    private GameManager gm;
+
+    private void Start()
+    {
+        gm = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+    }
 
     void Update()
     {
@@ -20,7 +26,7 @@ public class ShipController : MonoBehaviour
         {
             if (player.hasKeys)
             {
-                print("You Win!");
+                gm.WinGame();
             }
             else
             {
