@@ -39,11 +39,6 @@ public class ItemManager : MonoBehaviour
     void Start()
     {
         polygons = gameObject.GetComponents<PolygonCollider2D>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
         switch (type)
         {
             case ItemTypes.Collectable:
@@ -92,6 +87,12 @@ public class ItemManager : MonoBehaviour
                 polygons[8].enabled = true;
                 break;
         }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 
 
