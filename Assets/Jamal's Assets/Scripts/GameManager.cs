@@ -115,18 +115,25 @@ public class GameManager : MonoBehaviour
             int size = Random.Range(minDebriSize, maxDebriSize);
             g.transform.localScale = new Vector3(size, size, 1);
             g.GetComponent<Rigidbody2D>().mass *= size;
+            g.GetComponent<DebrisManager>().polygons = g.GetComponents<PolygonCollider2D>();
             switch (size)
             {
                 case 2:
-                    g.GetComponent<SpriteRenderer>().sprite = smallDebriSprites[Random.Range(0, smallDebriSprites.Length)];
+                    int s = Random.Range(0, smallDebriSprites.Length);
+                    g.GetComponent<SpriteRenderer>().sprite = smallDebriSprites[s];
+                    g.GetComponent<DebrisManager>().setTextureCollider(0); // TEMP
+                    //g.GetComponent<DebrisManager>().setTextureCollider(largeDebriSprites.Length + s);
                     break;
 
                 case 4:
-                    g.GetComponent<SpriteRenderer>().sprite = largeDebriSprites[Random.Range(0, largeDebriSprites.Length)];
+                    int l = Random.Range(0, largeDebriSprites.Length);
+                    g.GetComponent<SpriteRenderer>().sprite = largeDebriSprites[l];
+                    g.GetComponent<DebrisManager>().setTextureCollider(1 + l);
                     break;
 
                 default:
                     g.GetComponent<SpriteRenderer>().sprite = defaultDebriSprites[Random.Range(0, defaultDebriSprites.Length)];
+                    g.GetComponent<DebrisManager>().setTextureCollider(0);
                     break;
             }
             debriInstances.Add(g);
