@@ -12,7 +12,7 @@ public class DebrisManager : MonoBehaviour
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
-        aSrc = GameObject.FindWithTag("Player").GetComponent<AudioSource>();
+        aSrc = gameObject.GetComponent<AudioSource>();
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
 
         rb.AddTorque(Random.Range(-1, 1));
@@ -31,7 +31,7 @@ public class DebrisManager : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerManager>())
         {
-            aSrc.PlayOneShot(clangs[Mathf.RoundToInt(Random.Range(0, 9))]);
+            aSrc.PlayOneShot(clangs[Mathf.RoundToInt(Random.Range(0, 8))], Mathf.Clamp(collision.relativeVelocity.magnitude/10, 0, 1));
             print(collision.relativeVelocity.magnitude);
             collision.gameObject.GetComponent<PlayerManager>().numberOfCollisions++;
             if (collision.relativeVelocity.magnitude >= collision.gameObject.GetComponent<PlayerMovement>().colResistance)
