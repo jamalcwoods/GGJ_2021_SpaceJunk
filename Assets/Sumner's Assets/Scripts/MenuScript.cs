@@ -1,10 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class MenuScript : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject main;
+
+    [SerializeField]
+    private GameObject howTo;
+
     [SerializeField]
     private GameObject smallTitle;
 
@@ -22,6 +29,9 @@ public class MenuScript : MonoBehaviour
 
     [SerializeField]
     private GameObject astronaut;
+
+    [SerializeField]
+    private GameObject ship;
 
     private bool titleSequenceStart = false;
     private bool smallDone = false;
@@ -96,5 +106,38 @@ public class MenuScript : MonoBehaviour
         {
             StartCoroutine("QuitButton");
         }
+
+
+        if(!quitButton.active && Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            smallTitle.GetComponent<TextMeshProUGUI>().color = new Color(smallTitle.GetComponent<TextMeshProUGUI>().color.r, smallTitle.GetComponent<TextMeshProUGUI>().color.g, smallTitle.GetComponent<TextMeshProUGUI>().color.b, 1);
+            bigTitle.GetComponent<RectTransform>().localScale = new Vector2(1, 1);
+            settingsButton.SetActive(true);
+            playButton.SetActive(true);
+            quitButton.SetActive(true);
+            titleSequenceStart = true;
+            bigDone = true;
+            smallDone = true;
+            StopAllCoroutines();
+
+        }
+    }
+
+    public void StartGame()
+    {
+        main.SetActive(false);
+        ship.SetActive(false);
+        astronaut.SetActive(false);
+        howTo.SetActive(true);
+    }
+
+    public void ActuallyStartGame()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

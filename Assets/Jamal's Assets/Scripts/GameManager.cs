@@ -252,7 +252,7 @@ public class GameManager : MonoBehaviour
             if (playerInstance.GetComponent<PlayerManager>().currentPropellant != PropellantTypes.Suit)
             {
                 RectTransform r = fuelBar.GetComponent<RectTransform>();
-                r.sizeDelta = new Vector2(r.sizeDelta.x, 600f * (playerInstance.GetComponent<PlayerManager>().propellantFuel / 100));
+                r.sizeDelta = new Vector2(r.sizeDelta.x, 100f * (playerInstance.GetComponent<PlayerManager>().propellantFuel / 100));
             }
             else
             {
