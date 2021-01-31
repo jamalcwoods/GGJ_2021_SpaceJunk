@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Sumner's Assets/Scenes/Sumner's Testing.unity
     guid: e8829027bc71be6408694f2423724793
+  - enabled: 1
+    path: Assets/Jamal's Assets/Scenes/Jamal's Testing.unity
+    guid: f5cee3bafe518fc4ea95d95e154aef63
   m_configObjects: {}

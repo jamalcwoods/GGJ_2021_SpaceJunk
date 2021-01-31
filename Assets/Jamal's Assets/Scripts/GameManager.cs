@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
 
     private GameObject playerInstance, keyInstance, shipInstance;
 
-    private List<GameObject> itemInstances = new List<GameObject>(), debriInstances = new List<GameObject>(),entityInstances = new List<GameObject>();
+    public List<GameObject> itemInstances = new List<GameObject>(), debriInstances = new List<GameObject>(),entityInstances = new List<GameObject>();
     // Start is called before the first frame update
     void Start()
     {
@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
             item.Type = ItemTypes.Collectable;
             int cIndex = Random.Range(0, 3);
             item.CType = (CollectableTypes)cIndex;
+            item.gamemanager = this;
             // magenta - rebreather, white - armor, gray - propulsion computer
             item.GetComponent<SpriteRenderer>().sprite = new Sprite[] { itemSprites[0], itemSprites[1], itemSprites[2] }[cIndex];
             item.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-180, 180));
@@ -87,6 +88,7 @@ public class GameManager : MonoBehaviour
             item.Type = ItemTypes.Propellant;
             int pIndex = Random.Range(0, 4);
             item.PType = (PropellantTypes)pIndex;
+            item.gamemanager = this;
             //red - fireExt, green - jetpack, yellow - solarsail, cyan - popper
             item.GetComponent<SpriteRenderer>().sprite = new Sprite[] { itemSprites[3], itemSprites[4], itemSprites[5], itemSprites[6] }[pIndex];
             item.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-180, 180));
@@ -116,6 +118,7 @@ public class GameManager : MonoBehaviour
             g.transform.localScale = new Vector3(size, size, 1);
             g.GetComponent<Rigidbody2D>().mass *= size;
             g.GetComponent<DebrisManager>().polygons = g.GetComponents<PolygonCollider2D>();
+            
             switch (size)
             {
                 case 2:
@@ -149,6 +152,7 @@ public class GameManager : MonoBehaviour
         }
         keyInstance = Instantiate(ItemPreab, V, Quaternion.identity);
         ItemManager Item = keyInstance.GetComponent<ItemManager>();
+        Item.gamemanager = this;
         Item.Type = ItemTypes.Collectable;
         Item.CType = CollectableTypes.Keys;
         Item.GetComponent<SpriteRenderer>().sprite = itemSprites[7];
@@ -171,6 +175,7 @@ public class GameManager : MonoBehaviour
             g.transform.parent = transform;
             item.Type = ItemTypes.Oxygen;
             item.OxygenReplinishAmount = 20;
+            item.gamemanager = this;
             item.GetComponent<SpriteRenderer>().sprite = itemSprites[8];
             item.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-180, 180));
             itemInstances.Add(g);
@@ -237,6 +242,20 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        foreach (GameObject g in entityInstances)
+        {
+            Camera cam = Camera.main;
+            Vector3 newPos = g.transform.position;
+            if (cam.WorldToViewportPoint(newPos).x > 2 || cam.WorldToViewportPoint(newPos).x < -1 || cam.WorldToViewportPoint(newPos).y > 2 || cam.WorldToViewportPoint(newPos).y < -1)
+            {
+                g.SetActive(false);
+            }
+            else
+            {
+                g.SetActive(true);
+            }
+        }
+
         if (playerInstance != null)
         {
             RectTransform R = oxygenBar.GetComponent<RectTransform>();

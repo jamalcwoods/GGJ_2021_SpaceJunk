@@ -9,6 +9,9 @@ public class ItemManager : MonoBehaviour
     private CollectableTypes cType;
     private float oxygenReplinishAmount;
     [SerializeField] private AudioClip pickup;
+
+    public GameManager gamemanager;
+
     public PolygonCollider2D[] polygons;
 
 
@@ -148,7 +151,8 @@ public class ItemManager : MonoBehaviour
                     }
                     break;
             }
-            gameObject.SetActive(false);
+            gamemanager.entityInstances.Remove(gameObject);
+            Destroy(gameObject);
         }
     }
 }
